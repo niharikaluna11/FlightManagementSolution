@@ -20,3 +20,11 @@ const (
 	Mrs  Title = "Mrs"
 	Miss Title = "Miss"
 )
+
+type PassengerInput struct {
+	Title       string `json:"title"`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
+	DateOfBirth string `json:"date_of_birth"`
+	SeatNumber  string `json:"seat_number"`
+}

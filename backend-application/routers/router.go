@@ -44,5 +44,14 @@ func SetupRouter() *gin.Engine {
 	r.GET("/search-flights-oneway", handlers.SearchFlightsOneWay)
 	r.GET("/search-flights-twoway", handlers.SearchFlightsTwoWay)
 
+	// booking routes
+	r.POST("/create-booking", handlers.CreateBooking)
+	r.GET("/get-booking", handlers.GetAllBookings)
+	r.GET("/get-booking-by-ref", handlers.GetBookingByReference)
+	r.GET("/get-bookingpdf", handlers.GetPdf)
+
+	//SendEmailWithPdf
+	r.POST("/send-email", handlers.SendEmailWithPdf)
+
 	return r
 }

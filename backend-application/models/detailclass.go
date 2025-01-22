@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"errors"
+
+	"gorm.io/gorm"
+)
 
 type DetailClass struct {
 	gorm.Model
@@ -10,4 +14,18 @@ type DetailClass struct {
 	BaggageAllowance uint    `gorm:"not null"`
 	IsRefundable     bool    `gorm:"not null"`
 	PriceMultiplier  float64 `gorm:"not null"`
+	DetailClassID    uint    `gorm:"-"` // Virtual field to handle ID logic, not stored in DB
+}
+
+// GORM hook to set DetailClassID before creating a record
+func (d *DetailClass) BeforeCreate(tx *gorm.DB) (err error) {
+	switch d.DetailName {
+	case "Saver":
+		d.DetailClassID = 1
+	case "Flexi":
+		d.DetailClassID = 2
+	default:
+		return errors.New("invalid DetailName, must be 'Saver' or 'Flexi'")
+	}
+	return nil
 }
